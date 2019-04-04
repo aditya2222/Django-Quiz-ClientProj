@@ -9,7 +9,6 @@ ANSWER_ORDER_OPTIONS = (
 
 
 class MCQQuestion(Question):
-
     answer_order = models.CharField(
         max_length=30, null=True, blank=True,
         choices=ANSWER_ORDER_OPTIONS,
@@ -38,7 +37,8 @@ class MCQQuestion(Question):
         return self.order_answers(Answer.objects.filter(question=self))
 
     def get_answers_list(self):
-        return [(answer.id, answer.content) for answer in self.order_answers(Answer.objects.filter(question=self))]
+        return [(answer.id, answer.contentImage.url if answer.contentImage else answer.content) for answer in
+                self.order_answers(Answer.objects.filter(question=self))]
 
     def answer_choice_to_string(self, guess):
         return Answer.objects.get(id=guess).content
@@ -57,6 +57,8 @@ class Answer(models.Model):
                                             you want displayed",
                                verbose_name="Content")
 
+    contentImage = models.ImageField(blank=True, null=True)
+
     correct = models.BooleanField(blank=False,
                                   default=False,
                                   help_text="Is this a correct answer?",
@@ -65,12 +67,6 @@ class Answer(models.Model):
     def __str__(self):
         return self.content
 
-
     class Meta:
         verbose_name = "Answer"
         verbose_name_plural = "Answers"
-
-
-
-
-
