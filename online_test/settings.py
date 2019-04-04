@@ -74,11 +74,9 @@ WSGI_APPLICATION = 'online_test.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': {
-        dj_database_url.config(
-            default='postgres://drvgqeosbutunu:d5fa7859dc3115359827a12d34bd0f45ae71dbb330cdd56ff2caaf78a453ae47@ec2-184-73-210-189.compute-1.amazonaws.com:5432/d9uf3k3u90qnss'
-        )
-    }
+    'default': dj_database_url.config(
+        default='postgres://drvgqeosbutunu:d5fa7859dc3115359827a12d34bd0f45ae71dbb330cdd56ff2caaf78a453ae47@ec2-184-73-210-189.compute-1.amazonaws.com:5432/d9uf3k3u90qnss'
+    )
 }
 # DATABASES = {
 #     'default': {
